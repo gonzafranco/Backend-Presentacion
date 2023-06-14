@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres-app_contenedor
+    image: postgres:11
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=presentacionDB
+    # volumes:
+    #   - db-data:/var/lib/postgresql/data
+
+  # app:
+  #   container_name: app_contenedor
+  #   image: node-docker
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "13000:3000"
+
+  pgadmin:
+    container_name: pgadmin_postgres_app_contenedor
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "13001:80"
+    depends_on:
+      - postgres
+
+# volumes:
+#   db-data:
